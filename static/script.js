@@ -1,21 +1,32 @@
-Interazione con il back-end tramite AJAX.
-document.getElementById('bookingForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const service = document.getElementById('service').value;
-  const date = document.getElementById('date').value;
-  const time = document.getElementById('time').value;
-  const response = await fetch('/api/book', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ service, date, time }),
-  });
-  const result = await response.json();
-  const messageDiv = document.getElementById('responseMessage');
-  if (result.success) {
-    messageDiv.textContent = 'Appointment booked successfully!';
-    messageDiv.style.color = 'green';
-  } else {
-    messageDiv.textContent = 'Error booking appointment. Please try again.';
-    messageDiv.style.color = 'red';
-  }
+document.addEventListener("DOMContentLoaded", function () {
+    function deleteAppointment(appointmentId) {
+        if (!confirm("Are you sure you want to delete this appointment?")) {
+            return;
+        }
+
+        fetch(`/delete_appointment/${appointmentId}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Appointment deleted successfully.");
+                location.reload();
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while deleting the appointment.");
+        });
+    }
+
+    document.querySelectorAll(".delete-appointment").forEach(button => {
+        button.addEventListener("click", function () {
+            const appointmentId = this.dataset.id;
+            deleteAppointment(appointmentId);
+        });
+    });
 });

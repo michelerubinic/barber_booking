@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Dashboard</h2>
+        <h3>All Appointments</h3>
+
+        {% if appointments %}
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th> <!-- ✅ Corretto per mostrare l'ora -->
+                    <th>Actions</th>
+                </tr>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment[0] }}</td> <!-- ID -->
+                    <td>{{ appointment[1] }}</td> <!-- Username -->
+                    <td>{{ appointment[2] }}</td> <!-- Service -->
+                    <td>{{ appointment[3] }}</td> <!-- Date -->
+                    <td>{{ appointment[4] }}</td> <!-- Time -->
+                    <td>
+                        <button class="delete-appointment" data-id="{{ appointment[0] }}">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No appointments available.</p>
+        {% endif %}
+
+        <a href="{{ url_for('logout') }}"><button class="logout-btn">Logout</button></a>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

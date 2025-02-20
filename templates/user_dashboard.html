@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Stile per pulsanti grandi e uniformi */
+        .big-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ session['username'] }}</h2>
+        <h3>Your Appointments</h3>
+
+        {% if appointments %}
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment[1] }}</td>
+                    <td>{{ appointment[2] }}</td>
+                    <td>{{ appointment[3] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_appointment', appointment_id=appointment[0]) }}">
+                            <button class="big-btn">Edit</button>
+                        </a>
+                        <button class="delete-appointment big-btn" data-id="{{ appointment[0] }}">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No appointments booked.</p>
+        {% endif %}
+
+        <a href="{{ url_for('book') }}"><button class="big-btn">Book a new Appointment</button></a>
+        <a href="{{ url_for('logout') }}"><button class="logout-btn">Logout</button></a>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

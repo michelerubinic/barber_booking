@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Appointment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Appointment</h2>
+        <form method="post">
+            <label for="service">Service:</label>
+            <select name="service">
+                <option value="haircut" {% if appointment[1] == 'haircut' %} selected {% endif %}>Haircut</option>
+                <option value="shave" {% if appointment[1] == 'shave' %} selected {% endif %}>Shave</option>
+                <option value="beardTrim" {% if appointment[1] == 'beardTrim' %} selected {% endif %}>Beard Trim</option>
+            </select>
+
+            <label for="date">Date:</label>
+            <input type="date" name="date" value="{{ appointment[2] }}" required>
+
+            <label for="time">Time:</label>
+            <input type="time" name="time" value="{{ appointment[3] }}" required>
+
+            <button type="submit">Update Appointment</button>
+        </form>
+        <a href="{{ url_for('user_dashboard') }}">Cancel</a>
+    </div>
+</body>
+</html>

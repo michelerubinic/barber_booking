@@ -21,6 +21,8 @@ Il progetto "Barbershop Booking" è un sistema di prenotazione online sviluppato
 
 Le dipendenze sono specificate nel file `requirements.txt`.
 
+Le credenziali di accesso per l'Admin sono nome utente "admin" password: "admin"
+
 ## Installazione e Configurazione
 
 1. **Clonare il repository:**
@@ -28,3 +30,4 @@ Le dipendenze sono specificate nel file `requirements.txt`.
    ```bash
    git clone https://github.com/michelerubinic/barber_booking.git
    cd barber_booking
+
